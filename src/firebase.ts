@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDllTGeXlDaOaGocEx1emgQSgfNvjMDHbA",
@@ -27,10 +27,15 @@ export async function createPlaylist(n: string, d: string, i: string, c: Array<s
 export async function fetchPlaylist(id: string) {
   const playlistRef = doc(db, "playlists", id);
   const playlistSnap = await getDoc(playlistRef);
-
   if (playlistSnap.exists()) {
-    return playlistSnap.data();
-  } else {
+    if (playlistSnap.data().expiration.toMillis() < new Date()) {
+      await deleteDoc(playlistRef);
+    } else {
+      return JSON.stringify(playlistSnap.data());
+    }
+  }
+  else {
     return null;
   }
+
 }

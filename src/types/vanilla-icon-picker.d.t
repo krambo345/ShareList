@@ -1,0 +1,69 @@
+declare module "vanilla-icon-picker" {
+    class IconPicker {
+        constructor(
+            el: string | HTMLElement,
+            options: IconPicker.Options
+        );
+
+        on(
+            event: IconPicker.EventType,
+            callback?: Function
+        ): IconPicker;
+
+        off(
+            event: IconPicker.EventType,
+            callback?: Function
+        ): IconPicker;
+
+        open(): void;
+
+        hide(): void;
+
+        isOpen(): boolean;
+
+        iconsLoaded(): boolean;
+
+        destroy(deleteInstance?: boolean): void;
+    }
+
+    namespace IconPicker {
+        interface Options {
+            theme: Theme;
+            iconSource: Array<
+                IconSource | {
+                    key: string;
+                    prefix: string;
+                    url: string;
+                }
+            >;
+            closeOnSelect?: boolean;
+            defaultValue?: string;
+            i18n?: {
+                "input:placeholder"?: string;
+                "text:title"?: string;
+                "text:empty"?: string;
+                "btn:save"?: string;
+            };
+        }
+
+        type Theme = "default" | "bootstrap-5";
+
+        type IconSource =
+            | "FontAwesome Brands 6"
+            | "FontAwesome Solid 6"
+            | "FontAwesome Regular 6"
+            | "FontAwesome Brands 7"
+            | "FontAwesome Solid 7"
+            | "FontAwesome Regular 7"
+            | "Material Design Icons"
+            | "Iconoir";
+
+        type EventType =
+            | "select"
+            | "save"
+            | "show"
+            | "hide";
+    }
+
+    export default IconPicker;
+}

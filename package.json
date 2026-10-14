@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist --cname sharelist.krambo.space"
   },
   "devDependencies": {
     "typescript": "~6.0.2",
@@ -18,6 +19,7 @@
     "bootstrap-icons": "^1.13.1",
     "boring-webcrypto-sha256": "^1.0.0",
     "firebase": "^12.19.0",
+    "gh-pages": "^6.3.0",
     "vanilla-icon-picker": "^1.4.2"
   }
 }

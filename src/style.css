@@ -418,10 +418,6 @@ body:has(.hover-effect:hover) #cursor-glow {
   cursor: pointer;
 }
 
-.playlist-contenr-add:hover {
-  cursor: pointer;
-}
-
 .playlist-expiration {
   display: flex;
   height: 30px;
@@ -447,11 +443,24 @@ body:has(.hover-effect:hover) #cursor-glow {
   align-items: center;
   justify-self: center;
   flex-direction: column;
+  gap: 5px;
+}
+
+.playlist-entry-head {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.playlist-entry-head i {
+  font-size: 20px;
 }
 
 .playlist-entry {
   display: flex;
-  width: 75%;
+  width: 100%;
   height: 50px;
   background-color: var(--colorMiddle);
   border-radius: 6px;
@@ -472,6 +481,15 @@ body:has(.hover-effect:hover) #cursor-glow {
 
 .playlist-entry img {
   height: 70%;
+}
+
+.playlist-entry input {
+  font-size: 30px;
+  color: var(--text);
+  background-color: var(--colorBrightPlus);
+  outline: 0;
+  border: none;
+  border-radius: 15px;
 }
 
 .playlist-title {

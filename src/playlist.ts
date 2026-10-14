@@ -39,7 +39,6 @@ export async function playlist(content: Element, id: string) {
 
 
     `;
-    const icon = document.querySelector<HTMLDivElement>(".playlist-icon")!;
     const iconActual = document.querySelector<HTMLLIElement>(".playlist-icon-actual")!;
     const title = document.querySelector<HTMLHeadingElement>(".playlist-title")!;
     const description = document.querySelector<HTMLHeadingElement>(".playlist-description")!;
@@ -57,7 +56,7 @@ export async function playlist(content: Element, id: string) {
     })
     iconActual.className = `playlist-icon-actual ${data.icon}`;
     title.textContent = data.name;
-    title.style.fontSize = `${300 / (data.name.toString().length)}px`
+    title.style.fontSize = `${Math.min(300 / Math.max(data.name.toString().length, 5), 60)}px`;
     description.textContent = data.description;
     expiration.textContent = new Date(data.expiration.seconds * 1000).toLocaleDateString();
     console.log(JSON.stringify(data))
@@ -84,6 +83,7 @@ export async function playlist(content: Element, id: string) {
     })
   }
 }
+
 
 async function makeEntry(url: string, editing: boolean) {
   let editingEntry = false;
@@ -126,21 +126,37 @@ async function makeEntry(url: string, editing: boolean) {
   entryHead.appendChild(editButton);
   entryHead.appendChild(removeButton);
 
-  const domain = new URL(url);
+  entryHead.className = "playlist-entry-head";
+
+  const trimmedUrl = url.trim();
+  const normalizedUrl = /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(trimmedUrl)
+    ? trimmedUrl
+    : `https://${trimmedUrl}`;
+
+  let domain: URL;
+
   try {
-    await fetch(url)
-      .then(res => res.text())
-      .then(html => {
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        titlePlace.textContent = doc.title;
-      })
-  }
-  catch (error) {
+    domain = new URL(normalizedUrl);
+
+    const res = await fetch(domain.href);
+    if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+
+    titlePlace.textContent = doc.title.trim() || domain.hostname;
+  } catch (error) {
     console.log(`failed to get title of domain: ${error}`);
-    const prettyTitle = domain.hostname
-      .replace(/^www\./, "")
+
+    const prettyTitle = trimmedUrl
+      .replace(/^[a-zA-Z][a-zA-Z\d+.-]*:\/\//, "")
+      .split(/[/?#:]/)[0]
+      .replace(/^www\./i, "")
       .split(".")[0];
-    titlePlace.textContent = prettyTitle;
+
+    titlePlace.textContent = prettyTitle || trimmedUrl || "Untitled";
+
+    domain = new URL(normalizedUrl);
   }
   link.className = "playlist-entry-link";
   nameContainer.className = "playlist-name-container";
@@ -149,7 +165,7 @@ async function makeEntry(url: string, editing: boolean) {
   entry.className = "playlist-entry hover-effect";
   linkIcon.className = "bi bi-box-arrow-up-right hover-effect";
   titlePlace.className = "playlist-title";
-  entry.href = url;
+  entry.href = domain.href;
   entry.target = "_blank";
   link.textContent = url;
   contentContainer.appendChild(entryHead);
@@ -169,7 +185,10 @@ async function makeEntry(url: string, editing: boolean) {
         linkEdit.style.display = "none";
         link.style.display = "block";
         link.textContent = linkEdit.value;
-        entry.href = linkEdit.value;
+        const editedUrl = linkEdit.value.trim();
+        entry.href = /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(editedUrl)
+          ? editedUrl
+          : `https://${editedUrl}`;
         editButton.className = "bi bi-pencil-fill hover-effect playlist-entry-edit";
       }
     }
@@ -205,7 +224,6 @@ async function toggleEditing(value: boolean) {
 
     icon.classList.add("hover-effect");
 
-    let selectedIcon;
     const iconPicker = new IconPicker(".playlist-icon", {
       theme: "bootstrap-5",
       iconSource: [
@@ -218,7 +236,6 @@ async function toggleEditing(value: boolean) {
     iconPicker.on('select', (instance: any) => {
       console.log('Select:', instance);
       iconActual.className = `playlist-icon-actual ${instance.value}`;
-      selectedIcon = instance.value;
     });
     document.querySelectorAll<HTMLElement>(".playlist-entry-edit").forEach(edit => {
       edit.style.display = "block";

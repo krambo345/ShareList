@@ -43,10 +43,8 @@ export async function fetchPlaylist(id: string) {
 
 export async function editPlaylist(id: string, n: string, d: string, i: string, c: Array<string>, p: string) {
   const data = await fetchPlaylist(id);
-  console.log(data.password);
-  console.log(getSHA256Hash(p));
   if (data.password == await getSHA256Hash(p)) {
-    updateDoc(doc(db, "playlists", id), { name: n, description: d, icon: i, content: c })
+    await updateDoc(doc(db, "playlists", id), { name: n, description: d, icon: i, content: c })
     return true;
   }
   else {

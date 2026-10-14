@@ -29,13 +29,16 @@ html body {
   transition: background-color 0.9s;
 }
 
+* {
+  transition: background-color 0.9s;
+}
+
 .cursor-glow {
   position: fixed;
   background-color: transparent;
   box-shadow: 0px 0px 15px 15px var(--colorBright);
   z-index: 100;
-  transition: box-shadow 0.9s;
-  transition: top, left, 0.15s;
+  transition: top, left, 0.15s, box-shadow 0.9s;
 }
 
 body:has(.hover-effect:hover) #cursor-glow {
@@ -165,6 +168,385 @@ body:has(.hover-effect:hover) #cursor-glow {
   gap: 8px;
 }
 
+.icon-picker-modal__dialog {
+  background-color: var(--colorDarkMinus) !important;
+  box-shadow: 0px 0px 40px 0px var(--colorBright);
+}
+
+.icon-picker-modal__content .icon-element i,
+.icon-picker-modal__content .icon-element svg {
+  color: var(--text) !important;
+}
+
+.icon-picker-modal__content .icon-element:hover {
+  background-color: var(--colorMiddle) !important;
+  border-color: var(--text) !important;
+}
+
+.icon-picker-modal__content .icon-element.is-selected {
+  background-color: var(--colorBrightPlus) !important;
+  border-color: var(--text) !important;
+}
+
+.icon-picker-modal__header .icon-picker-modal--close:hover {
+  background-color: transparent !important;
+}
+
+.icon-picker-modal__contentform-control {
+  background-color: var(--colorMiddle) !important;
+}
+
+.create-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.create-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 360px;
+  align-items: center;
+}
+
+.create-container form input {
+  background-color: var(--text);
+  border: none;
+  border-radius: 6px;
+  height: 30px;
+  width: 300px;
+  margin-bottom: 12px;
+  color: var(--colorDark);
+  font-weight: bold;
+  transition: width 1s;
+}
+
+.create-container form input:hover {
+  width: 320px;
+}
+
+.create-container form input:focus {
+  width: 390px;
+}
+
+.icon-picker-input {
+  display: flex;
+  background-color: var(--colorBright);
+  width: 300px;
+  height: 30px;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: width 0.5s, background-color 0.9s;
+}
+
+.icon-preview {
+  color: var(--text);
+}
+
+.icon-picker-input:hover {
+  cursor: pointer;
+  width: 320px;
+}
+
+.create-expiration:hover {
+  cursor: text;
+}
+
+.create-submit {
+  display: flex;
+  background-color: var(--colorDarkMinus);
+  border: none;
+  border-radius: 6px;
+  height: 45px;
+  width: 120px;
+  color: var(--text);
+  font-weight: bold;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  transition: width 1s;
+  transition: background-color, transform, 0.9s ease;
+}
+
+.create-submit:hover {
+  cursor: pointer;
+  width: 150px;
+}
+
+.create-error {
+  color: #EF6351;
+}
+
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playlist-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.playlist-info-container {
+  margin-left: 30px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-title {
+  display: flex;
+  width: 300px;
+  height: 150px;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.playlist-description {
+  display: flex;
+  font-size: 18px;
+  height: 100px;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.playlist-title-edit {
+  display: flex;
+  background-color: var(--colorDarkMinus);
+  border: none;
+  width: 300px;
+  height: 150px;
+  font-size: 100%;
+  color: var(--text);
+  margin: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 15px;
+  margin-bottom: 2px;
+}
+
+.playlist-title-edit:focus {
+  outline: 0;
+  border: 3px solid var(--colorBright);
+  border-radius: 15px;
+}
+
+
+.playlist-description-edit {
+  display: flex;
+  background-color: var(--colorDarkMinus);
+  border: none;
+  font-size: 100%;
+  color: var(--text);
+  border-radius: 15px;
+  height: 100px;
+  margin: 0;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.playlist-description-edit:focus {
+  outline: 0;
+  border: 3px solid var(--colorBright);
+  border-radius: 15px;
+}
+
+.playlist-icon {
+  display: flex;
+  height: 250px;
+  width: 250px;
+  background-color: var(--colorDarkMinus);
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.playlist-icon-actual {
+  font-size: 100px;
+}
+
+.playlist-extra {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  height: 30px;
+}
+
+.playlist-edit-button {
+  display: flex;
+  background-color: var(--colorDarkMinus);
+  height: 30px;
+  width: 60px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 6px;
+  margin: 0;
+  margin-left: 5px;
+  align-self: flex-end;
+}
+
+.playlist-edit-button:hover {
+  cursor: pointer;
+}
+
+.playlist-content-add {
+  display: flex;
+  background-color: var(--colorDarkMinus);
+  color: var(--text);
+  height: 30px;
+  width: 60px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 6px;
+  margin: 0;
+  margin-bottom: 5px;
+  align-self: flex-end;
+  margin-right: 230px;
+}
+
+.playlist-content-add:hover {
+  cursor: pointer;
+}
+
+.playlist-contenr-add:hover {
+  cursor: pointer;
+}
+
+.playlist-expiration {
+  display: flex;
+  height: 30px;
+  background-color: transparent;
+  width: fit-content;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  flex-direction: row;
+  justify-self: flex-end;
+}
+
+.playlist-expiration-date {
+  display: flex;
+  margin: 0;
+  justify-self: flex-end;
+}
+
+.playlist-content {
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+  justify-self: center;
+  flex-direction: column;
+}
+
+.playlist-entry {
+  display: flex;
+  width: 75%;
+  height: 50px;
+  background-color: var(--colorMiddle);
+  border-radius: 6px;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.playlist-entry a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--text);
+}
+
+.playlist-entry img {
+  height: 70%;
+}
+
+.playlist-title {
+  font-size: 30px;
+  font-weight: bold;
+  height: 70%;
+}
+
+.playlist-name-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 5px;
+}
+
+.playlist-link-container {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.playlist-password-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 80vh;
+  width: 80vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  background-color: var(--colorDarkMinus);
+  box-shadow: 0px 0px 20px 10px var(--colorBright);
+  gap: 30px;
+  transition: background-color 0.9s, box-shadow 0.9s;
+}
+
+.playlist-password-header {
+  font-size: 75px;
+  margin: 0;
+}
+
+.playlist-password-input {
+  height: 50px;
+  width: 250px;
+  border-radius: 15px;
+  font-size: 45px;
+  text-align: center;
+  background-color: var(--colorMiddle);
+  color: var(--text);
+  outline: 0;
+  border: none;
+  transition: width 1s, background-color 0.9s;
+}
+
+.playlist-password-input:hover {
+  width: 300px;
+}
+
+.playlist-password-input:focus {
+  width: 350px;
+}
+
+.playlist-password-submit {
+  color: var(--text);
+  font-size: 50px;
+  transition: color 0.5s;
+}
+
+.playlist-password-submit {
+  cursor: pointer;
+}
+
 @keyframes arrowBounce {
   0% {
     margin-top: 600px;
@@ -177,5 +559,35 @@ body:has(.hover-effect:hover) #cursor-glow {
 
   50% {
     margin-top: 600px;
+  }
+}
+
+.wiggle {
+  animation: wiggle 0.3s;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: translateX(0px);
+  }
+
+  25% {
+    transform: translateX(5px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(-5px);
+  }
+
+  125% {
+    transform: translateX(0px);
   }
 }

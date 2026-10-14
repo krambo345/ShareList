@@ -7,7 +7,7 @@ declare module "vanilla-icon-picker" {
 
         on(
             event: IconPicker.EventType,
-            callback?: Function
+           callback?: Function
         ): IconPicker;
 
         off(
@@ -30,11 +30,11 @@ declare module "vanilla-icon-picker" {
         interface Options {
             theme: Theme;
             iconSource: Array<
-                IconSource | {
-                    key: string;
-                    prefix: string;
-                    url: string;
-                }
+            IconSource | {
+                key: string;
+                prefix: string;
+                url: string;
+            }
             >;
             closeOnSelect?: boolean;
             defaultValue?: string;
@@ -49,20 +49,20 @@ declare module "vanilla-icon-picker" {
         type Theme = "default" | "bootstrap-5";
 
         type IconSource =
-            | "FontAwesome Brands 6"
-            | "FontAwesome Solid 6"
-            | "FontAwesome Regular 6"
-            | "FontAwesome Brands 7"
-            | "FontAwesome Solid 7"
-            | "FontAwesome Regular 7"
-            | "Material Design Icons"
-            | "Iconoir";
+        | "FontAwesome Brands 6"
+        | "FontAwesome Solid 6"
+        | "FontAwesome Regular 6"
+        | "FontAwesome Brands 7"
+        | "FontAwesome Solid 7"
+        | "FontAwesome Regular 7"
+        | "Material Design Icons"
+        | "Iconoir";
 
         type EventType =
-            | "select"
-            | "save"
-            | "show"
-            | "hide";
+        | "select"
+        | "save"
+        | "show"
+        | "hide";
     }
 
     export default IconPicker;

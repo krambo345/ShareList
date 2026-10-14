@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { getSHA256Hash } from "boring-webcrypto-sha256";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDllTGeXlDaOaGocEx1emgQSgfNvjMDHbA",
@@ -12,12 +13,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function createPlaylist(n: string, d: string, i: string, c: Array<string>, e: Date, p: string) {
+export async function createPlaylist(n: string, d: string, i: string, e: Date, p: string) {
   const docRef = await addDoc(collection(db, "playlists"), {
     name: n,
     description: d,
     icon: i,
-    content: c,
     expiration: e,
     password: p
   })
@@ -31,11 +31,25 @@ export async function fetchPlaylist(id: string) {
     if (playlistSnap.data().expiration.toMillis() < new Date()) {
       await deleteDoc(playlistRef);
     } else {
-      return JSON.stringify(playlistSnap.data());
+      const reformat = JSON.stringify(playlistSnap.data());
+      return JSON.parse(reformat);
     }
   }
   else {
     return null;
   }
 
+}
+
+export async function editPlaylist(id: string, n: string, d: string, i: string, c: Array<string>, p: string) {
+  const data = await fetchPlaylist(id);
+  console.log(data.password);
+  console.log(getSHA256Hash(p));
+  if (data.password == await getSHA256Hash(p)) {
+    updateDoc(doc(db, "playlists", id), { name: n, description: d, icon: i, content: c })
+    return true;
+  }
+  else {
+    return false;
+  }
 }

@@ -13,8 +13,10 @@
     "vite": "^8.3.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "boring-webcrypto-sha256": "^1.0.0",
     "firebase": "^12.19.0",
     "vanilla-icon-picker": "^1.4.2"
   }

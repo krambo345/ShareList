@@ -11,7 +11,6 @@ export function home(content: Element) {
       <a href="./create" class="home-create hover-effect">Create Playlist</a>
       <p>No Account Required</p>
       <i class="bi bi-caret-down-fill home-down"></i>
-      <div style="height: 500px;"></div>
       <div class="cards">
         <img class="card-image"></img>
         <p class="card-text"></p>
@@ -19,6 +18,7 @@ export function home(content: Element) {
     </div>
   `;
   const arrow = document.querySelector<HTMLElement>(".home-down")!;
+  arrow.style.display = "none";
   window.addEventListener("scroll", () => {
     if (window.scrollY >> 0) {
       arrow.style.color = "transparent";

@@ -18,7 +18,7 @@ export async function playlist(content: Element, id: string) {
   } else {
     content.innerHTML = `
       <div class="playlist-container">
-        <div class="playlist-header">
+          <div class="playlist-header">
           <div class="playlist-icon">
             <i class="playlist-icon-actual"></i>
           </div>
@@ -29,6 +29,7 @@ export async function playlist(content: Element, id: string) {
             <input type="text" class="playlist-description-edit hover-effect">
           </div>
           <div class="playlist-extra">
+          <button class="playlist-share hover-effect">Share Playlist</button>
           <div class="playlist-edit-button hover-effect">Edit</div>
           <div class="playlist-expiration">Expires:<p class="playlist-expiration-date"></p></div>
           </div>
@@ -47,12 +48,27 @@ export async function playlist(content: Element, id: string) {
     const titleEdit = document.querySelector<HTMLInputElement>(".playlist-title-edit")!;
     const descriptionEdit = document.querySelector<HTMLInputElement>(".playlist-description-edit")!;
     const contentAdd = document.querySelector<HTMLButtonElement>(".playlist-content-add")!;
+    const playlistShare = document.querySelector<HTMLButtonElement>(".playlist-share")!;
 
+    playlistShare.addEventListener("click", async () => {
+      try {
+        await navigator.share({
+          url: window.location.href
+        });
+      }
+      catch (error) {
+        void error;
+        navigator.clipboard.writeText(window.location.href);
+        playlistShare.textContent = "Link Copied!";
+        setTimeout(() => { playlistShare.textContent = "Share Playlist" }, 2500);
+      }
+    })
     titleEdit.style.display = "none";
     descriptionEdit.style.display = "none";
     contentAdd.style.display = "none";
-    contentAdd.addEventListener("click", () => {
-      makeEntry("about:blank", true);
+    contentAdd.addEventListener("click", async () => {
+      await makeEntry("about:blank", true);
+      window.scrollTo(0, document.body.scrollHeight);
     })
     iconActual.className = `playlist-icon-actual ${data.icon}`;
     title.textContent = data.name;
@@ -115,9 +131,10 @@ async function makeEntry(url: string, editing: boolean) {
   linkEdit.style.display = "none";
   nameContainer.appendChild(icon);
   linkContainer.appendChild(link);
+  linkContainer.appendChild(linkEdit);
+
   nameContainer.appendChild(titlePlace);
   linkContainer.appendChild(linkIcon);
-  linkContainer.appendChild(linkEdit);
 
   entry.appendChild(nameContainer);
   entry.appendChild(linkContainer);
@@ -266,16 +283,17 @@ async function toggleEditing(value: boolean) {
 }
 async function applyDataWithPassword(id: string, container: Element): Promise<boolean> {
   let counter = 0;
-  console.log(counter)
   const titleEdit = document.querySelector<HTMLInputElement>(".playlist-title-edit")!;
   const descriptionEdit = document.querySelector<HTMLInputElement>(".playlist-description-edit")!;
   const iconActual = document.querySelector<HTMLLIElement>(".playlist-icon-actual")!;
 
+  const block = document.createElement("div");
   const passwordContainer = document.createElement("div");
   const passwordHeader = document.createElement("h1");
   const passwordInput = document.createElement("input");
   const passwordSubmit = document.createElement("i");
 
+  block.className = "block"
   passwordContainer.className = "playlist-password-container";
   passwordHeader.className = "playlist-password-header";
   passwordInput.className = "playlist-password-input";
@@ -283,7 +301,7 @@ async function applyDataWithPassword(id: string, container: Element): Promise<bo
 
   passwordHeader.textContent = "Password";
   passwordInput.type = "password";
-
+  container.appendChild(block);
   passwordContainer.appendChild(passwordHeader);
   passwordContainer.appendChild(passwordInput);
   passwordContainer.appendChild(passwordSubmit);
@@ -330,6 +348,7 @@ async function applyDataWithPassword(id: string, container: Element): Promise<bo
         passwordInput.remove();
         passwordSubmit.remove();
         resolve(false);
+        window.location.href = "../home"
       }
     })
   })

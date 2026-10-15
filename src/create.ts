@@ -8,17 +8,17 @@ export async function create(content: Element) {
   content.innerHTML = `
     <div class="create-container">
     <h1>Create a New Playlist</h1>
-    <form autocomplete="new-password">
+    <form autocomplete="off">
       <label>Name</label>
-      <input type="text" class="create-name hover-effect" />
+      <input type="text" class="create-name hover-effect" autocomplete="off" />
       <label>Description</label>
-      <input type="text" class="create-description hover-effect" />
+      <input type="text" class="create-description hover-effect" autocomplete="off" />
       <label>Icon</label>
       <div class="icon-picker-input hover-effect"><i class="icon-preview"></i></div>
       <label>Expiration Date</label>
-      <input type="date" class="create-expiration hover-effect"></input>
+      <input type="date" class="create-expiration hover-effect" autocomplete="off" />
       <label>Password</label>
-      <input type="password" class="create-password hover-effect"></input>
+      <input type="password" class="create-password hover-effect" autocomplete="off" />
       <button type="button" class="create-submit hover-effect">Submit</button>
     </form>
     <p class="create-error"></p>
@@ -35,7 +35,8 @@ export async function create(content: Element) {
     ],
     closeOnSelect: true
   });
-  iconPreview.className = `icon-preview fa fa-share-alt`
+  iconPreview.className = `icon-preview fa fa-share-alt`;
+  selectedIcon = 'fa fa-share-alt';
   iconPicker.on('select', (instance: any) => {
     console.log('Select:', instance);
     iconPreview.className = `icon-preview ${instance.value}`;

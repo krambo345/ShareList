@@ -31,7 +31,7 @@ export async function playlist(content: Element, id: string) {
           <div class="playlist-extra">
           <button class="playlist-share hover-effect">Share Playlist</button>
           <div class="playlist-edit-button hover-effect">Edit</div>
-          <div class="playlist-expiration">Expires:<p class="playlist-expiration-date"></p></div>
+          <div class="playlist-expiration">Expires:&nbsp <p class="playlist-expiration-date"></p></div>
           </div>
           </div>
       </div>
@@ -192,6 +192,7 @@ async function makeEntry(url: string, editing: boolean) {
       editingEntry = true;
       linkEdit.style.display = "block";
       link.style.display = "none";
+      linkIcon.style.display = "none"
       linkEdit.value = link.textContent;
       editButton.className = "bi bi-floppy-fill hover-effect playlist-entry-edit";
       entry.removeAttribute("href");
@@ -201,6 +202,7 @@ async function makeEntry(url: string, editing: boolean) {
         editingEntry = false;
         linkEdit.style.display = "none";
         link.style.display = "block";
+        linkIcon.style.display = "block";
         link.textContent = linkEdit.value;
         const editedUrl = linkEdit.value.trim();
         entry.href = /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(editedUrl)

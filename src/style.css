@@ -20,7 +20,7 @@
 html,
 body {
   min-height: 100%;
-  width: 100%;
+  width: 100vw;
   margin: 0;
 }
 
@@ -28,6 +28,7 @@ html body {
   height: auto;
   min-height: 100vh;
   max-width: 100%;
+  margin: 0;
   top: 0;
   left: 0;
   background-color: var(--colorDark);
@@ -45,7 +46,7 @@ body {
 *::after {
   box-sizing: border-box;
   transition: background-color 0.9s;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .cursor-glow {
@@ -575,7 +576,7 @@ body:has(.hover-effect:hover) #cursor-glow {
   outline: 0;
   border: none;
   border-radius: 15px;
-  overflow-wrap: anywhere;
+  margin-left: auto;
 }
 
 .playlist-name-container {
@@ -592,6 +593,7 @@ body:has(.hover-effect:hover) #cursor-glow {
   align-items: center;
   flex-direction: row;
   gap: 5px;
+  max-width: 40vw;
 }
 
 .playlist-password-container {
@@ -767,7 +769,9 @@ body:has(.hover-effect:hover) #cursor-glow {
 
   .playlist-extra {
     margin-top: 5px;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   .playlist-edit-button {
@@ -777,6 +781,14 @@ body:has(.hover-effect:hover) #cursor-glow {
 
   .playlist-expiration {
     justify-self: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .playlist-expiration-date {
+    overflow-wrap: normal;
   }
 
   .playlist-icon {
@@ -962,7 +974,7 @@ body:has(.hover-effect:hover) #cursor-glow {
   }
 
   .playlist-entry input {
-    width: 45%;
+    width: 100%;
   }
 
   .playlist-entry-head i {
